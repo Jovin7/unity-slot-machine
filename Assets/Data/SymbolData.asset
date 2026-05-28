@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aed85df654c64842a3b1a2c2a1a9fb6, type: 3}
+  m_Name: SymbolData
+  m_EditorClassIdentifier: 
+  symbols:
+  - symbolId: bluegem
+    icon: {fileID: 21300000, guid: 248442ab698803a48b6dbf8509c6afb3, type: 3}
+    weight: 40
+    threeMatchPayout: 5
+    fourMatchPayout: 10
+    fiveMatchPayout: 25
+    freeSpins: 0
+    multiplier: 0
+  - symbolId: greengem
+    icon: {fileID: 21300000, guid: 508d5d87ec6bbcd479a48ffd1a21f4e2, type: 3}
+    weight: 35
+    threeMatchPayout: 8
+    fourMatchPayout: 16
+    fiveMatchPayout: 40
+    freeSpins: 0
+    multiplier: 0
+  - symbolId: purplegem
+    icon: {fileID: 21300000, guid: 6c1f8b0a793ec314daa856578e280c99, type: 3}
+    weight: 30
+    threeMatchPayout: 10
+    fourMatchPayout: 20
+    fiveMatchPayout: 50
+    freeSpins: 0
+    multiplier: 0
+  - symbolId: redgem
+    icon: {fileID: 21300000, guid: f2fbb0d0c0c78b54789ce6488083338c, type: 3}
+    weight: 20
+    threeMatchPayout: 20
+    fourMatchPayout: 40
+    fiveMatchPayout: 100
+    freeSpins: 0
+    multiplier: 0
+  - symbolId: yeloowgem
+    icon: {fileID: 21300000, guid: 0bdbffd5cdece33479aeb0b847eab71e, type: 3}
+    weight: 15
+    threeMatchPayout: 30
+    fourMatchPayout: 60
+    fiveMatchPayout: 150
+    freeSpins: 0
+    multiplier: 0
+  - symbolId: purplerare
+    icon: {fileID: 21300000, guid: 14369cceced82f2409dcedd41979f2ef, type: 3}
+    weight: 8
+    threeMatchPayout: 75
+    fourMatchPayout: 150
+    fiveMatchPayout: 375
+    freeSpins: 0
+    multiplier: 0
+  - symbolId: redrare
+    icon: {fileID: 21300000, guid: cdcf41403b946ed42a7418794384ee24, type: 3}
+    weight: 5
+    threeMatchPayout: 150
+    fourMatchPayout: 300
+    fiveMatchPayout: 750
+    freeSpins: 0
+    multiplier: 2
+  - symbolId: yellowsuperrare
+    icon: {fileID: 21300000, guid: 841c827e721ecc044b0131939242e4e3, type: 3}
+    weight: 3
+    threeMatchPayout: 0
+    fourMatchPayout: 0
+    fiveMatchPayout: 0
+    freeSpins: 10
+    multiplier: 0
