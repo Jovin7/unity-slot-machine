@@ -19,6 +19,7 @@ MonoBehaviour:
     threeMatchPayout: 5
     fourMatchPayout: 10
     fiveMatchPayout: 25
+    isWild: 0
     freeSpins: 0
     multiplier: 0
   - symbolId: greengem
@@ -27,6 +28,7 @@ MonoBehaviour:
     threeMatchPayout: 8
     fourMatchPayout: 16
     fiveMatchPayout: 40
+    isWild: 0
     freeSpins: 0
     multiplier: 0
   - symbolId: purplegem
@@ -35,6 +37,7 @@ MonoBehaviour:
     threeMatchPayout: 10
     fourMatchPayout: 20
     fiveMatchPayout: 50
+    isWild: 0
     freeSpins: 0
     multiplier: 0
   - symbolId: redgem
@@ -43,6 +46,7 @@ MonoBehaviour:
     threeMatchPayout: 20
     fourMatchPayout: 40
     fiveMatchPayout: 100
+    isWild: 0
     freeSpins: 0
     multiplier: 0
   - symbolId: yeloowgem
@@ -51,6 +55,7 @@ MonoBehaviour:
     threeMatchPayout: 30
     fourMatchPayout: 60
     fiveMatchPayout: 150
+    isWild: 0
     freeSpins: 0
     multiplier: 0
   - symbolId: purplerare
@@ -59,6 +64,7 @@ MonoBehaviour:
     threeMatchPayout: 75
     fourMatchPayout: 150
     fiveMatchPayout: 375
+    isWild: 0
     freeSpins: 0
     multiplier: 0
   - symbolId: redrare
@@ -67,13 +73,15 @@ MonoBehaviour:
     threeMatchPayout: 150
     fourMatchPayout: 300
     fiveMatchPayout: 750
+    isWild: 0
     freeSpins: 0
     multiplier: 2
-  - symbolId: yellowsuperrare
-    icon: {fileID: 21300000, guid: 841c827e721ecc044b0131939242e4e3, type: 3}
-    weight: 3
-    threeMatchPayout: 0
-    fourMatchPayout: 0
-    fiveMatchPayout: 0
+  - symbolId: wild
+    icon: {fileID: 21300000, guid: f03becc3df6a9a24ab418bb56b45ae29, type: 3}
+    weight: 15
+    threeMatchPayout: 1
+    fourMatchPayout: 2
+    fiveMatchPayout: 1500
+    isWild: 1
     freeSpins: 10
-    multiplier: 0
+    multiplier: 50

@@ -36,13 +36,15 @@ public class RNGTester : MonoBehaviour
             float percentage =
                 (pair.Value / (float)totalSpins) * 100f;
 
-            Debug.Log(
-                pair.Key +
-                " = " +
-                pair.Value +
-                " (" +
-                percentage.ToString("F2") +
-                "%)");
+            Debug.Log(pair.Key + " = " + pair.Value + " (" + percentage.ToString("F2") + "%)");
+
+
+
+
+
+
         }
     }
+
+
 }

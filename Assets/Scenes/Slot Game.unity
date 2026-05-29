@@ -683,7 +683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxSource: {fileID: 613923542}
-  spinClip: {fileID: 8300000, guid: 1dc74ba1de95bc34b9765923a490c2b4, type: 3}
+  spinClip: {fileID: 8300000, guid: 57ead8310a1de474f848fe84c0d1ba6b, type: 3}
   reelStopClip: {fileID: 8300000, guid: 3000ea6d89e9f80419797243ccd7efd8, type: 3}
   winClip: {fileID: 8300000, guid: f63802a826f37194eaf22f64e24b6b24, type: 3}
 --- !u!4 &613923544
@@ -2467,8 +2467,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 1}
-      key1: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 0.9644501, g: 1, b: 0, a: 1}
+      key1: {r: 0.9647059, g: 1, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2491,7 +2491,7 @@ LineRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 1
       m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2

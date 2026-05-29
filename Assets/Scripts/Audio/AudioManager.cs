@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnReelStopped( )
     {
-        Debug.Log("reel");
+    //    Debug.Log("reel");
         PlaySFX(reelStopClip);
     }
 

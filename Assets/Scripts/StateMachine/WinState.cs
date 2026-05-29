@@ -10,7 +10,7 @@ public class WinState : IGameState
     private WinResult currentResult;
 
     private float timer;
-    private float duration = 5f;
+    private float duration = 2f;
 
    
     public WinState(IGameStateMachine stateMachine, IGameState idleState, IWinPresentationService winPresentationService)

@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     private IWalletService walletService;
     private ISpinService spinService;
     private IPaylineService paylineService;
+    private ISymbolMatcher symbolMatcher;
     private IWinPresentationService winPresentationService;
 
 
@@ -36,10 +37,11 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         spinService = new SpinService(reels);
-        paylineService = new PaylineService(reels, paylineDatabase);
+        symbolMatcher = new StandardSymbolMatcher();
+        paylineService = new PaylineService(reels, paylineDatabase, symbolMatcher);
         winPresentationService = new WinPresentationService(reels, paylineRenderer);
         walletService = new WalletService();
-
+        
         StateMachine = new GameStateMachine();
         IdleState = new IdleState();
         WinState = new WinState(StateMachine, IdleState, winPresentationService);
