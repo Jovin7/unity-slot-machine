@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     private ISpinService spinService;
     private IPaylineService paylineService;
     private ISymbolMatcher symbolMatcher;
+    private IGridModifier gridModifier;
     private IWinPresentationService winPresentationService;
 
 
@@ -38,7 +39,8 @@ public class GameManager : MonoBehaviour
     {
         spinService = new SpinService(reels);
         symbolMatcher = new StandardSymbolMatcher();
-        paylineService = new PaylineService(reels, paylineDatabase, symbolMatcher);
+        gridModifier = new ExpandingWildModifier();
+        paylineService = new PaylineService(reels, paylineDatabase, symbolMatcher, gridModifier);
         winPresentationService = new WinPresentationService(reels, paylineRenderer);
         walletService = new WalletService();
         

@@ -29,6 +29,7 @@ public class SymbolData
     public int fiveMatchPayout;
 
     public bool isWild;
+    public bool isExpandingWild;
     // Free Spins
     public int freeSpins;
     public int multiplier;

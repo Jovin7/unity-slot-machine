@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class SpinService : ISpinService
 {
-    public readonly ReelController[] reels;
+    public readonly IReel[] reels;
 
-    public SpinService(ReelController[] reels)
+    public SpinService(IReel[] reels)
     {
         this.reels = reels;
     }

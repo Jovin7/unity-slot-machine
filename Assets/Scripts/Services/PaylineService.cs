@@ -4,53 +4,44 @@ using UnityEngine;
 
 public  class PaylineService  : IPaylineService
 {
-    private ReelController[] reels;
+    private IReel[] reels;
     private PaylineDatabase paylineDatabase;
     private ISymbolMatcher symbolMatcher;
-    public PaylineService(ReelController[] reels, PaylineDatabase paylineDatabase, ISymbolMatcher symbolMatcher)
+    private IGridModifier gridModifier;
+    public PaylineService(IReel[] reels, PaylineDatabase paylineDatabase, ISymbolMatcher symbolMatcher, IGridModifier gridModifier)
     {
         this.reels = reels;
         this.paylineDatabase = paylineDatabase;
         this.symbolMatcher = symbolMatcher;
+        this.gridModifier = gridModifier;
     }
 
     public WinResult CheckWin()
     {
-        WinResult result = new WinResult();
         SymbolData[,] grid = BuildGrid(reels);
-        
-        foreach (var line in paylineDatabase.paylines)
-        {
-            Vector2Int firstPos = line.positions[0];
 
-            SymbolData symbol = grid[firstPos.x, firstPos.y];
-          
-            int matchCount = symbolMatcher.GetMatchCount(grid, line, out int multiplier, out SymbolData matchedSymbol);
+        ApplyModifiers(grid);
 
-            if (matchCount >= 3)
-            {
-                
-                result.hasWin = true;
+        RefreshUI(grid);
 
-                result.winningLines.Add(line);
-              
-                int payout = GetPayout(matchedSymbol, matchCount);
-
-                result.totalPayout += (payout * multiplier);
-
-                for (int i = 0; i < matchCount; i++)
-                {
-                    result.winningPositions.Add(line.positions[i]);
-
-                }
-                //GameLogger.Win(symbol.symbolId + " matched " + matchCount + " = payout " + payout);
-                GameLogger.Win(payout +"            "+multiplier +"       "+result.totalPayout.ToString());
-            }
-           
-        }
-        return result;
+        return EvaluatePaylines(grid);
     }
-    private SymbolData[,] BuildGrid(ReelController[] reels)
+    private void ApplyModifiers(SymbolData[,] grid)
+    {
+        gridModifier.ModifyGrid(grid);
+    }
+    private void RefreshUI(SymbolData[,] grid)
+    {
+        for (int reel = 0; reel < reels.Length; reel++)
+        {
+            for (int row = 0; row < 4; row++)
+            {
+                reels[reel].UpdateSymbolAtRow(row, grid[reel, row]);
+            }
+        }
+    }
+
+    private SymbolData[,] BuildGrid(IReel[] reels)
     {
         SymbolData[,] grid = new SymbolData[5, 4];
 
@@ -66,7 +57,47 @@ public  class PaylineService  : IPaylineService
             
         return grid;
     }
-  
+    private WinResult EvaluatePaylines(SymbolData[,] grid)
+    {
+        WinResult result = new WinResult();
+
+        foreach (var line in paylineDatabase.paylines)
+        {
+            EvaluateLine(grid, line, result);
+        }
+
+        return result;
+    }
+    private void EvaluateLine(SymbolData[,] grid, Payline line, WinResult result)
+    {
+        int matchCount = symbolMatcher.GetMatchCount(grid, line, out int multiplier, out SymbolData matchedSymbol);
+
+        if (matchCount < 3)
+            return;
+
+        int payout = GetPayout(matchedSymbol, matchCount);
+
+        result.hasWin = true;
+
+        result.winningLines.Add(line);
+
+        result.totalPayout += payout * multiplier;
+
+        AddWinningPositions(line, matchCount, result);
+
+        LogWin(payout, multiplier, result.totalPayout);
+    }
+    private void AddWinningPositions(Payline line, int matchCount, WinResult result)
+    {
+        for (int i = 0; i < matchCount; i++)
+        {
+            result.winningPositions.Add(line.positions[i]);
+        }
+    }
+    private void LogWin(int payout, int multiplier, int totalPayout)
+    {
+        GameLogger.Win(payout + " " + multiplier + " " + totalPayout);
+    }
 
     private int GetPayout(SymbolData symbol,int matchCount)
     {
