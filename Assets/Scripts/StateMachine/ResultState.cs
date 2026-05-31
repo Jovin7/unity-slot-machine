@@ -8,13 +8,15 @@ public class ResultState : IGameState
     private readonly IGameState idleState;
     private readonly IGameState winState;
     private readonly IPaylineService paylineService;
+    private readonly GameSessionContext sessionContext;
 
-    public ResultState(IGameStateMachine stateMachine, IGameState idleState, IGameState winState, IPaylineService paylineService)
+    public ResultState(IGameStateMachine stateMachine, IGameState idleState, IGameState winState, IPaylineService paylineService, GameSessionContext sessionContext)
     {
         this.stateMachine = stateMachine;
         this.idleState = idleState;
         this.winState = winState;
         this.paylineService = paylineService;
+        this.sessionContext = sessionContext;
     }
     public void Enter()
     {
@@ -26,7 +28,8 @@ public class ResultState : IGameState
 
         if (result.hasWin)
         {
-            ((WinState)winState).SetResult(result);
+           // ((WinState)winState).SetResult(result);
+            sessionContext.CurrentWinResult = result;
             stateMachine.ChangeState(winState);
         }
         else

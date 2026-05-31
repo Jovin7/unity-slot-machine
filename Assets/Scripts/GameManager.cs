@@ -30,24 +30,25 @@ public class GameManager : MonoBehaviour
     private IGridModifier gridModifier;
     private IWinPresentationService winPresentationService;
 
-
+    private GameSessionContext sessionContext;
     public PaylineRenderer paylineRenderer;
     private int stoppedReelsCount = 0;
 
 
     void Awake()
     {
+        sessionContext = new GameSessionContext();
         spinService = new SpinService(reels);
         symbolMatcher = new StandardSymbolMatcher();
         gridModifier = new ExpandingWildModifier();
-        paylineService = new PaylineService(reels, paylineDatabase, symbolMatcher, gridModifier);
+        paylineService = new PaylineService(reels, paylineDatabase, symbolMatcher, gridModifier, sessionContext);
         winPresentationService = new WinPresentationService(reels, paylineRenderer);
         walletService = new WalletService();
         
         StateMachine = new GameStateMachine();
         IdleState = new IdleState();
-        WinState = new WinState(StateMachine, IdleState, winPresentationService);
-        ResultState = new ResultState(StateMachine, IdleState, WinState, paylineService);
+        WinState = new WinState(StateMachine, IdleState, winPresentationService, sessionContext);
+        ResultState = new ResultState(StateMachine, IdleState, WinState, paylineService, sessionContext);
         SpinState = new SpinState(spinService, StateMachine,ResultState);
         
 
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
         EventBus.Subscribe<PlayButtonClickedEvent>(PlayButtonClicked);
         EventBus.Subscribe<SpinRequestedEvent >(RequestSpin);
         EventBus.Subscribe<ReelStoppedEvent>(OnReelStopped);
-        EventBus.Subscribe<WinCalculatedEvent>(UpdatePlayerCoins);
+        EventBus.Subscribe<WinCalculatedEvent>(AddPlayerCoins);
     }
 
     private void OnDisable()
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour
         EventBus.UnSubscribe<PlayButtonClickedEvent>(PlayButtonClicked);
         EventBus.UnSubscribe<SpinRequestedEvent>(RequestSpin);
         EventBus.UnSubscribe<ReelStoppedEvent>(OnReelStopped);
-        EventBus.UnSubscribe<WinCalculatedEvent>(UpdatePlayerCoins);
+        EventBus.UnSubscribe<WinCalculatedEvent>(AddPlayerCoins);
     }
 
     private void Start()
@@ -94,6 +95,8 @@ public class GameManager : MonoBehaviour
     {
         if (StateMachine.currentState is IdleState)
         {
+            sessionContext.CurrentBet = obj.betAmount;
+            walletService.SpendCoins(obj.betAmount);
             StateMachine.ChangeState(SpinState);
         }
     }
@@ -119,11 +122,11 @@ public class GameManager : MonoBehaviour
         }
     }
    
-    private void UpdatePlayerCoins(WinCalculatedEvent obj)
+    private void AddPlayerCoins(WinCalculatedEvent obj)
     {
         walletService.AddCoins(obj.result.totalPayout);
 
     }
-  
+   
 
 }

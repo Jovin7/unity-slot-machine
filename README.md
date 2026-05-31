@@ -1,104 +1,90 @@
-# 🎰 Slot Machine Game
+# 🎰 Unity Slot Machine Game
 
-A polished 2D Slot Machine game developed in Unity with a strong focus on clean architecture, scalable systems, and maintainable gameplay programming.
-
----
-
-# 📌 Project Goal
-
-The goal of this project was not only to create a functional slot game, but also to practice industry-standard Unity architecture patterns, modular system design, and scalable gameplay systems.
+A modular 2D Slot Machine game developed in Unity with a strong focus on scalable gameplay architecture, clean code practices, and reusable systems.
 
 ---
 
 # 🚀 Features
 
-- 🎡 Reel spinning system
-- 🎲 RNG-based symbol generation
-- 🧠 Payline evaluation system
-- ⚡ Event-driven architecture using Event Bus
-- 🔄 Finite State Machine (FSM) for game flow
-- 🧩 Interface-based decoupled systems
-- 📦 ScriptableObject-driven game configuration
-- 🔊 Audio feedback system
-- ✨ UI animations and transitions
-- 🛠️ Scalable and maintainable architecture
+* Reel spinning system
+* RNG-based weighted symbol generation
+* Payline evaluation system
+* Wild symbol support
+* Expanding Wild mechanic
+* Event-driven architecture using Event Bus
+* Finite State Machine (FSM) for game flow
+* ScriptableObject-driven configuration
+* Win animations and audio feedback
 
 ---
 
-# 🧠 Architecture & Design Patterns
+# 🧠 Architecture Highlights
 
-This project focuses heavily on clean architecture and scalable Unity development practices.
+This project focuses heavily on gameplay systems architecture and maintainable Unity development practices.
 
-## ✅ Event Bus System
-Implemented an event-driven communication system to reduce tight coupling between gameplay systems.
+## ✅ Modular Reel System
 
-## ✅ Finite State Machine (FSM)
-Game flow is controlled using FSM states such as:
-- Idle State
-- Spin State
-- Result State
-- Win State
+Reel logic was refactored into separate systems:
+
+* Reel Generator
+* Reel Spinner
+* Reel Stopper
+* Reel Symbol Tracker
 
 ## ✅ Interface-Based Design
-Used interfaces to replace direct singleton dependencies and improve:
-- Testability
-- Flexibility
-- Maintainability
 
-## ✅ RNG System
-Implemented Random Number Generation logic for:
-- Reel symbol generation
-- Fair spin outcomes
+Used interfaces to decouple gameplay systems and improve scalability.
 
-## ✅ Payline Evaluator
-Custom payline evaluation system to:
-- Detect winning combinations
-- Calculate rewards
-- Support scalable paylines
+Examples:
 
-## ✅ Scriptable Objects
-Used ScriptableObjects for:
-- Symbol data configuration
-- Payline definitions
-- Easy designer-friendly balancing
+* `IReel`
+* `IReelSpinner`
+* `IReelStopper`
+* `IReelGenerator`
+* `IReelSymbolTracker`
+* `IPaylineService`
+* `IGridModifier`
 
----
+## ✅ Modifier-Based Gameplay System
 
-# 🏗️ Programming Principles
+Implemented an expanding wild modifier system that modifies grid data independently from UI rendering.
 
-- SOLID Principles
-- Separation of Concerns
-- Modular System Design
-- Reusable Components
-- Scalable Architecture
+This architecture supports future mechanics such as:
+
+* Sticky Wilds
+* Cascading Symbols
+* Multiplier Systems
+* Free Spins
+
+## ✅ Event-Driven Architecture
+
+Custom Event Bus used to reduce tight coupling between gameplay systems.
+
+## ✅ FSM-Based Game Flow
+
+Game states handled using a Finite State Machine:
+
+* Idle State
+* Spin State
+* Result State
+* Win State
 
 ---
 
 # 🛠️ Built With
 
-- Unity
-- C#
-- DOTween
-- ScriptableObjects
-- FSM Architecture
-- Event Bus Pattern
+* Unity
+* C#
+* ScriptableObjects
+* FSM Architecture
+* Event Bus Pattern
 
 ---
 
-# 📂 Project Structure
+# 🎯 Focus Areas
 
-```bash
-Assets/
-├── Scripts/
-│   ├── Core
-│   ├── Events
-│   ├── FSM
-│   ├── Interfaces
-│   ├── Managers
-│   ├── ReelSystem
-│   ├── UI
-│   └── PaylineSystem
-├── ScriptableObjects
-├── Audio
-├── Prefabs
-└── Art
+* Gameplay Systems Programming
+* Clean Architecture
+* Scalable Unity Systems
+* Modular Design
+* SOLID Principles

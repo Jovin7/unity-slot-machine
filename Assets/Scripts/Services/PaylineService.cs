@@ -5,15 +5,18 @@ using UnityEngine;
 public  class PaylineService  : IPaylineService
 {
     private IReel[] reels;
-    private PaylineDatabase paylineDatabase;
     private ISymbolMatcher symbolMatcher;
     private IGridModifier gridModifier;
-    public PaylineService(IReel[] reels, PaylineDatabase paylineDatabase, ISymbolMatcher symbolMatcher, IGridModifier gridModifier)
+    private readonly GameSessionContext sessionContext;
+    private PaylineDatabase paylineDatabase;
+   
+    public PaylineService(IReel[] reels, PaylineDatabase paylineDatabase, ISymbolMatcher symbolMatcher, IGridModifier gridModifier, GameSessionContext sessionContext)
     {
         this.reels = reels;
         this.paylineDatabase = paylineDatabase;
         this.symbolMatcher = symbolMatcher;
         this.gridModifier = gridModifier;
+        this.sessionContext = sessionContext;
     }
 
     public WinResult CheckWin()
@@ -81,10 +84,10 @@ public  class PaylineService  : IPaylineService
 
         result.winningLines.Add(line);
 
-        result.totalPayout += payout * multiplier;
+        result.totalPayout += payout * multiplier  * sessionContext.CurrentBet;
 
         AddWinningPositions(line, matchCount, result);
-
+            
         LogWin(payout, multiplier, result.totalPayout);
     }
     private void AddWinningPositions(Payline line, int matchCount, WinResult result)
@@ -104,7 +107,7 @@ public  class PaylineService  : IPaylineService
         switch (matchCount)
         {
             case 3:
-                return symbol.threeMatchPayout;
+                return symbol.threeMatchPayout ;
 
             case 4:
                 return symbol.fourMatchPayout;
