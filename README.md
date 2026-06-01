@@ -7,7 +7,7 @@ A modular 2D Slot Machine game developed in Unity with a strong focus on scalabl
 # 🎥 Gameplay Demo
 
 <p align="center">
-  <a href="https://youtu.be/UrzQjT2ywyo">
+  <a href="https://www.youtube.com/embed/UrzQjT2ywyo">
     <img src="https://img.youtube.com/vi/UrzQjT2ywyo/maxresdefault.jpg" width="800" alt="Unity Slot Machine Gameplay"/>
   </a>
 </p>
