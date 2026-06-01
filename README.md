@@ -3,9 +3,14 @@
 A modular 2D Slot Machine game developed in Unity with a strong focus on scalable gameplay architecture, reusable systems, and clean code practices.
 
 ---
+
 # 🎥 Gameplay Demo
 
-[![Watch the Gameplay Video]](https://youtu.be/UrzQjT2ywyo)
+<p align="center">
+  <a href="https://youtu.be/UrzQjT2ywyo">
+    <img src="https://img.youtube.com/vi/abc123xyz/maxresdefault.jpg" width="800" alt="Gameplay Video"/>
+  </a>
+</p>
 
 
 # 🚀 Features
