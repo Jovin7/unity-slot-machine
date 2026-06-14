@@ -76,7 +76,7 @@ public class GameCanvasController : MonoBehaviour
     }
     private void UpdateWinAmountUI(WinCalculatedEvent obj)
     {
-        winAmount.text = obj.result.totalPayout.ToString();
+        winAmount.text = obj.result.winResult.totalPayout.ToString();
     }
 
 }

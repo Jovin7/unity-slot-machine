@@ -4,5 +4,5 @@ using UnityEngine;
 
     public interface IPaylineService 
     {
-        WinResult CheckWin();
+        SpinResult CheckWin();
     }

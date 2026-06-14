@@ -10,7 +10,7 @@ public class MainMenuController : MonoBehaviour
 
     [SerializeField] private Button PlayButton;
     [SerializeField] private TextMeshProUGUI cointText;
-    [SerializeField] private TextMeshProUGUI experienceText;
+    [SerializeField] private TextMeshProUGUI spinText;
     [SerializeField] private Transform gamePanel;
     [SerializeField] private Transform gameScreen;
 
@@ -23,14 +23,25 @@ public class MainMenuController : MonoBehaviour
     {
         PlayButton.onClick.AddListener(OnPlayButtonClicked);
         EventBus.Subscribe<WalletUpdateEvent>(OnCoinsUpdated);
+        EventBus.Subscribe<FreeSpinUpdatedEvent>(OnFreeSpinUpdate);
     }
+
+ 
+
     private void OnDisable()
     {
         PlayButton.onClick.RemoveListener(OnPlayButtonClicked);
         EventBus.UnSubscribe<WalletUpdateEvent>(OnCoinsUpdated);
+        EventBus.UnSubscribe<FreeSpinUpdatedEvent>(OnFreeSpinUpdate);
+
+
+    }
+    public void OnFreeSpinUpdate(FreeSpinUpdatedEvent obj)
+    {
+
+        spinText.text = $"Free Spins : {obj.remainingSpin}";
     }
 
-    
     public void OnPlayButtonClicked()
     {
         gameScreen.gameObject.SetActive(true);

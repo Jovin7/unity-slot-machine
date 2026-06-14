@@ -8,28 +8,37 @@ public class ResultState : IGameState
     private readonly IGameState idleState;
     private readonly IGameState winState;
     private readonly IPaylineService paylineService;
+    private readonly IFreeSpinManager freeSpinManager;
     private readonly GameSessionContext sessionContext;
 
-    public ResultState(IGameStateMachine stateMachine, IGameState idleState, IGameState winState, IPaylineService paylineService, GameSessionContext sessionContext)
+    public ResultState(IGameStateMachine stateMachine,
+                       IGameState idleState,
+                       IGameState winState,
+                       IPaylineService paylineService,
+                       IFreeSpinManager freeSpinManager,
+                       GameSessionContext sessionContext)
     {
         this.stateMachine = stateMachine;
         this.idleState = idleState;
         this.winState = winState;
         this.paylineService = paylineService;
+        this.freeSpinManager = freeSpinManager;
         this.sessionContext = sessionContext;
     }
     public void Enter()
     {
-        //GameLogger.State("Result Game state Enter");
 
-        WinResult result = paylineService.CheckWin();
+        SpinResult result = paylineService.CheckWin();
 
+        if (result.scatterResult.isScatterTriggered)
+        {
+            freeSpinManager.AddFreeSpin(result.scatterResult.freeSpins);
+        }
         EventBus.Publish(new WinCalculatedEvent(result));
 
-        if (result.hasWin)
+        if (result.winResult.hasWin)
         {
-           // ((WinState)winState).SetResult(result);
-            sessionContext.CurrentWinResult = result;
+            sessionContext.CurrentWinResult = result.winResult;
             stateMachine.ChangeState(winState);
         }
         else

@@ -22,14 +22,17 @@ public class GameManager : MonoBehaviour
     public IGameState SpinState { get; private set; }
     public IGameState ResultState { get; private set; }
     public IGameState WinState { get; private set; }
+    public IGameState FreeSpinState { get; private set; }
 
     private IWalletService walletService;
     private ISpinService spinService;
     private IPaylineService paylineService;
     private ISymbolMatcher symbolMatcher;
     private IGridModifier gridModifier;
+    private IScatterChecker scatterChecker;
     private IWinPresentationService winPresentationService;
 
+    private IFreeSpinManager freeSpinManager;
     private GameSessionContext sessionContext;
     public PaylineRenderer paylineRenderer;
     private int stoppedReelsCount = 0;
@@ -37,20 +40,23 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        freeSpinManager = new FreeSpinManager(); 
         sessionContext = new GameSessionContext();
         spinService = new SpinService(reels);
         symbolMatcher = new StandardSymbolMatcher();
         gridModifier = new ExpandingWildModifier();
-        paylineService = new PaylineService(reels, paylineDatabase, symbolMatcher, gridModifier, sessionContext);
+        scatterChecker = new ScatterChecker();
+        paylineService = new PaylineService(reels, paylineDatabase, symbolMatcher, gridModifier, scatterChecker, sessionContext);
         winPresentationService = new WinPresentationService(reels, paylineRenderer);
         walletService = new WalletService();
         
         StateMachine = new GameStateMachine();
-        IdleState = new IdleState();
+        IdleState = new IdleState(freeSpinManager,StateMachine);
         WinState = new WinState(StateMachine, IdleState, winPresentationService, sessionContext);
-        ResultState = new ResultState(StateMachine, IdleState, WinState, paylineService, sessionContext);
+        ResultState = new ResultState(StateMachine, IdleState, WinState, paylineService, freeSpinManager, sessionContext);
         SpinState = new SpinState(spinService, StateMachine,ResultState);
-        
+        FreeSpinState = new FreeSpinState(freeSpinManager, StateMachine, SpinState);
+        ((IdleState)IdleState).InjectFreeSpinState(FreeSpinState);
 
     }
     private void OnEnable()
@@ -96,7 +102,17 @@ public class GameManager : MonoBehaviour
         if (StateMachine.currentState is IdleState)
         {
             sessionContext.CurrentBet = obj.betAmount;
-            walletService.SpendCoins(obj.betAmount);
+            if (!freeSpinManager.IsFreeSpinAvailable)
+            {
+                walletService.SpendCoins(obj.betAmount);
+               
+                GameLogger.Win(freeSpinManager.RemainingSpins.ToString());
+            }
+            else
+            {
+                freeSpinManager.ReduceFreeSpinCount();
+            }
+
             StateMachine.ChangeState(SpinState);
         }
     }
@@ -124,7 +140,7 @@ public class GameManager : MonoBehaviour
    
     private void AddPlayerCoins(WinCalculatedEvent obj)
     {
-        walletService.AddCoins(obj.result.totalPayout);
+        walletService.AddCoins(obj.result.winResult.totalPayout);
 
     }
    

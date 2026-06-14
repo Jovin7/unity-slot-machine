@@ -20,6 +20,7 @@ MonoBehaviour:
     fourMatchPayout: 2
     fiveMatchPayout: 5
     isWild: 0
+    isScatter: 0
     isExpandingWild: 0
     freeSpins: 0
     multiplier: 0
@@ -30,6 +31,7 @@ MonoBehaviour:
     fourMatchPayout: 3
     fiveMatchPayout: 6
     isWild: 0
+    isScatter: 0
     isExpandingWild: 0
     freeSpins: 0
     multiplier: 0
@@ -40,6 +42,7 @@ MonoBehaviour:
     fourMatchPayout: 4
     fiveMatchPayout: 8
     isWild: 0
+    isScatter: 0
     isExpandingWild: 0
     freeSpins: 0
     multiplier: 0
@@ -50,6 +53,7 @@ MonoBehaviour:
     fourMatchPayout: 10
     fiveMatchPayout: 20
     isWild: 0
+    isScatter: 0
     isExpandingWild: 0
     freeSpins: 0
     multiplier: 0
@@ -60,6 +64,7 @@ MonoBehaviour:
     fourMatchPayout: 15
     fiveMatchPayout: 30
     isWild: 0
+    isScatter: 0
     isExpandingWild: 0
     freeSpins: 0
     multiplier: 0
@@ -70,6 +75,7 @@ MonoBehaviour:
     fourMatchPayout: 25
     fiveMatchPayout: 60
     isWild: 0
+    isScatter: 0
     isExpandingWild: 0
     freeSpins: 0
     multiplier: 0
@@ -80,6 +86,7 @@ MonoBehaviour:
     fourMatchPayout: 40
     fiveMatchPayout: 100
     isWild: 0
+    isScatter: 0
     isExpandingWild: 0
     freeSpins: 0
     multiplier: 2
@@ -90,6 +97,7 @@ MonoBehaviour:
     fourMatchPayout: 2
     fiveMatchPayout: 500
     isWild: 1
+    isScatter: 0
     isExpandingWild: 0
     freeSpins: 10
     multiplier: 50
@@ -100,6 +108,18 @@ MonoBehaviour:
     fourMatchPayout: 1
     fiveMatchPayout: 1000
     isWild: 1
+    isScatter: 0
     isExpandingWild: 1
+    freeSpins: 10
+    multiplier: 50
+  - symbolId: scatter
+    icon: {fileID: 21300000, guid: 218e710dfdc13d14c8f27805682c1df9, type: 3}
+    weight: 19
+    threeMatchPayout: 1
+    fourMatchPayout: 1
+    fiveMatchPayout: 1000
+    isWild: 0
+    isScatter: 1
+    isExpandingWild: 0
     freeSpins: 10
     multiplier: 50

@@ -4,10 +4,28 @@ using UnityEngine;
 
 public class IdleState : IGameState
 {
-   
+    private readonly IFreeSpinManager freeSpinManager;
+    private readonly IGameStateMachine stateMachine;
+    private IGameState freeSpinState;
+
+    public IdleState(IFreeSpinManager freeSpinManager, IGameStateMachine stateMachine)
+    {
+        this.freeSpinManager = freeSpinManager;
+        this.stateMachine = stateMachine;
+    }
+    public void InjectFreeSpinState(IGameState freeSpinState)
+    {
+        this.freeSpinState = freeSpinState;
+    }
     public void Enter()
     {
-       // GameLogger.State("Idle Game state Enter");
+        GameLogger.State("Idle Game state Enter");
+        if (freeSpinManager.IsFreeSpinAvailable)
+        {
+            stateMachine.ChangeState(freeSpinState);
+            return;
+        }
+           
 
         EventBus.Publish(new SpinAvailabilityChangedEvent());
     }
@@ -23,4 +41,5 @@ public class IdleState : IGameState
       //  GameLogger.State("Idle Game state Update");
 
     }
+  
 }

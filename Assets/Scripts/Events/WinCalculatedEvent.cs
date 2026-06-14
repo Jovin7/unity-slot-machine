@@ -4,11 +4,11 @@ using UnityEngine;
 
 public struct WinCalculatedEvent : IEvent
 {
-    public WinResult result;
-
-    public WinCalculatedEvent(WinResult result)
+    public SpinResult result;
+    public WinCalculatedEvent(SpinResult result)
     {
         this.result = result;
+       
     }
    
 }

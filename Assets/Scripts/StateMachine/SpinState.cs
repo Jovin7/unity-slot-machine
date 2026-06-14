@@ -17,7 +17,7 @@ public class SpinState : IGameState
     }
     public void Enter()
     {
-        //GameLogger.State("Spin Game state Enter");
+        GameLogger.State("Spin Game state Enter");
 
         spinService.StartSpin();
         EventBus.Subscribe<AllReelsStoppedEvent>(OnSpinStopped);

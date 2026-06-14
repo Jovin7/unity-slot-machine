@@ -7,27 +7,44 @@ public  class PaylineService  : IPaylineService
     private IReel[] reels;
     private ISymbolMatcher symbolMatcher;
     private IGridModifier gridModifier;
+    private IScatterChecker checker;
     private readonly GameSessionContext sessionContext;
     private PaylineDatabase paylineDatabase;
-   
-    public PaylineService(IReel[] reels, PaylineDatabase paylineDatabase, ISymbolMatcher symbolMatcher, IGridModifier gridModifier, GameSessionContext sessionContext)
+    public PaylineService(IReel[] reels,
+                          PaylineDatabase paylineDatabase,
+                          ISymbolMatcher symbolMatcher,
+                          IGridModifier gridModifier,
+                           IScatterChecker checker,
+                          GameSessionContext sessionContext)
     {
         this.reels = reels;
         this.paylineDatabase = paylineDatabase;
         this.symbolMatcher = symbolMatcher;
         this.gridModifier = gridModifier;
+        this.checker = checker; 
         this.sessionContext = sessionContext;
     }
 
-    public WinResult CheckWin()
+    public SpinResult CheckWin()
     {
+        SpinResult spinResult = new SpinResult();
         SymbolData[,] grid = BuildGrid(reels);
-
+       
         ApplyModifiers(grid);
 
         RefreshUI(grid);
+        spinResult.scatterResult = checker.CheckScatter(grid);
 
-        return EvaluatePaylines(grid);
+
+        if (spinResult.scatterResult.isScatterTriggered)
+        {
+            Debug.LogError(
+                $"Free Spins Awarded: {spinResult.scatterResult.freeSpins}");
+        }
+        spinResult.winResult = EvaluatePaylines(grid);
+
+
+        return spinResult;
     }
     private void ApplyModifiers(SymbolData[,] grid)
     {

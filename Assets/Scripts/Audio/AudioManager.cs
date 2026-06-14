@@ -49,7 +49,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnWinCalculated(WinCalculatedEvent obj)
     {
-        if (obj.result.hasWin)
+        if (obj.result.winResult.hasWin)
         {
             PlaySFX(winClip);
         }

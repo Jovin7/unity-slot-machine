@@ -4,9 +4,9 @@ using UnityEngine;
 
 public static class GameLogger
 {
-    public static bool StateLogs = false;
+    public static bool StateLogs = true;
     public static bool ReelLogs = true;
-    public static bool WinLogs = true;
+    public static bool WinLogs = false;
     public static bool RNGLogs = true;
 
     public static void State(string msg)
